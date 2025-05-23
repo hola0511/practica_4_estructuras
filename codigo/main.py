@@ -8,7 +8,6 @@ def menu():
         size = int(size_input) if size_input.strip() else 10
     except ValueError:
         size = 10
-
     maze = Maze(size=size, num_people=3)
 
     while True:
