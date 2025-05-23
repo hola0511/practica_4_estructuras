@@ -1,12 +1,13 @@
 from colorama import Fore, Style
 
+
 def display_maze(maze):
     print(f"\nIteración: {maze.iteration}")
     for i in range(maze.size):
         row = ""
         for j in range(maze.size):
             pos = (i, j)
-            if pos == maze.exit:
+            if pos in maze.exits:
                 row += f"{Fore.GREEN}🏁{Style.RESET_ALL}"
             elif any(p.pos == pos for p in maze.people):
                 row += f"{Fore.BLUE}🧍{Style.RESET_ALL}"
@@ -21,3 +22,10 @@ def display_maze(maze):
                 else:
                     row += "."
         print(row)
+
+
+def print_decision_tree(node, prefix=""):
+    print(
+        f"{prefix}Iteración {node.iteration}: Celda {node.pos} {f'(→ {node.direction})' if node.direction else '(Inicio)'}")
+    for child in node.children:
+        print_decision_tree(child, prefix + "│   ")

@@ -1,6 +1,7 @@
+import random
 from maze import Maze
-from visualizer import display_maze
-from person import print_decision_tree
+from visualizer import display_maze, print_decision_tree
+
 
 def menu():
     try:
@@ -8,7 +9,7 @@ def menu():
         size = int(size_input) if size_input.strip() else 10
     except ValueError:
         size = 10
-    maze = Maze(size=size, num_people=3)
+    maze = Maze(size=size, num_people=random.randint(1, 3))
 
     while True:
         print("🌳 The Maze of Terror 🌀")
@@ -53,6 +54,7 @@ def menu():
 
         else:
             print("Opción inválida")
+
 
 if __name__ == "__main__":
     menu()

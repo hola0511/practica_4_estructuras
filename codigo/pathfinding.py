@@ -1,6 +1,7 @@
 from collections import deque
 
-def calculate_path(grid, start, end, blocked_dirs):
+
+def calculate_path(grid, start, end1, end2, blocked_dirs):
     n = len(grid)
     visited = set()
     queue = deque([[start]])
@@ -8,9 +9,9 @@ def calculate_path(grid, start, end, blocked_dirs):
     while queue:
         path = queue.popleft()
         x, y = path[-1]
-        if (x, y) == end:
+        if (x, y) == end1 or (x, y) == end2:
             return path
-        for dx, dy in [(-1,0),(1,0),(0,-1),(0,1), (-1,-1),(-1,1),(1,-1),(1,1)]:
+        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
             if (dx, dy) in blocked_dirs:
                 continue
             nx, ny = x + dx, y + dy

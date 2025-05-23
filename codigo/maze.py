@@ -1,21 +1,20 @@
 import random
 from person import Person
 
+
 class Maze:
     def __init__(self, size, num_people):
         self.size = size
         self.grid = [[" " for _ in range(size)] for _ in range(size)]
         self.people = []
-        self.exits = [
-            (random.randint(0, size-1), random.randint(0, size-1)),
-            (random.randint(0, size-1), random.randint(0, size-1))
-        ]
+        self.exits = [(random.randint(0, size-1), random.randint(0, size-1)),
+                      (random.randint(0, size-1), random.randint(0, size-1))]
         self.num_people = num_people
         self.iteration = 0
 
     def initialize(self):
         self.people = []
-        for _ in range(self.num_people):
+        for i in range(self.num_people):
             while True:
                 pos = (random.randint(0, self.size-1), random.randint(0, self.size-1))
                 if pos not in self.exits:
@@ -24,7 +23,7 @@ class Maze:
 
     def add_obstacle(self):
         try:
-            x, y = map(int, input("Coordenadas X,Y del bloqueo: ").split(","))
+            x, y = map(int, input("Coordenadas X.Y del bloqueo: ").split("."))
             if 0 <= x < self.size and 0 <= y < self.size:
                 self.grid[x][y] = "X"
             else:
@@ -34,7 +33,7 @@ class Maze:
 
     def add_trap(self):
         try:
-            x, y = map(int, input("Coordenadas X,Y de la trampa: ").split(","))
+            x, y = map(int, input("Coordenadas X.Y de la trampa: ").split("."))
             if 0 <= x < self.size and 0 <= y < self.size:
                 self.grid[x][y] = "T"
             else:
@@ -44,7 +43,7 @@ class Maze:
 
     def add_delay(self):
         try:
-            x, y = map(int, input("Coordenadas X,Y del retrasador: ").split(","))
+            x, y = map(int, input("Coordenadas X.Y del retrasador: ").split("."))
             if 0 <= x < self.size and 0 <= y < self.size:
                 self.grid[x][y] = "R"
             else:
@@ -57,7 +56,7 @@ class Maze:
         activos = 0
         for person in self.people:
             pos_anterior = person.pos
-            person.take_turn(self.grid, self.exits, self.iteration)
+            person.take_turn(self.grid, self.exits[0], self.exits[1], self.iteration)
             if person.pos != pos_anterior:
                 activos += 1
         if activos == 0:
@@ -66,7 +65,7 @@ class Maze:
             return
 
         num_elementos = random.randint(1, 3)
-        for _ in range(num_elementos):
+        for i in range(num_elementos):
             x = random.randint(0, self.size - 1)
             y = random.randint(0, self.size - 1)
             if (x, y) in self.exits or any(p.pos == (x, y) for p in self.people):
