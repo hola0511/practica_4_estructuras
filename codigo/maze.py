@@ -12,7 +12,7 @@ class Maze:
 
     def initialize(self):
         self.people = []
-        for _ in range(self.num_people):
+        for i in range(self.num_people):
             while True:
                 pos = (random.randint(0, self.size-1), random.randint(0, self.size-1))
                 if pos != self.exit:
@@ -63,12 +63,10 @@ class Maze:
             return
 
         num_elementos = random.randint(1, 3)
-        for _ in range(num_elementos):
+        for i in range(num_elementos):
             x = random.randint(0, self.size - 1)
             y = random.randint(0, self.size - 1)
             if (x, y) == self.exit or any(p.pos == (x, y) for p in self.people):
                 continue
             tipo = random.choice(["X", "T", "R"])
             self.grid[x][y] = tipo
-
-
