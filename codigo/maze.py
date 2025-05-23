@@ -6,16 +6,19 @@ class Maze:
         self.size = size
         self.grid = [[" " for _ in range(size)] for _ in range(size)]
         self.people = []
-        self.exit = (random.randint(0, size-1), random.randint(0, size-1))
+        self.exits = [
+            (random.randint(0, size-1), random.randint(0, size-1)),
+            (random.randint(0, size-1), random.randint(0, size-1))
+        ]
         self.num_people = num_people
         self.iteration = 0
 
     def initialize(self):
         self.people = []
-        for i in range(self.num_people):
+        for _ in range(self.num_people):
             while True:
                 pos = (random.randint(0, self.size-1), random.randint(0, self.size-1))
-                if pos != self.exit:
+                if pos not in self.exits:
                     self.people.append(Person(pos))
                     break
 
@@ -54,7 +57,7 @@ class Maze:
         activos = 0
         for person in self.people:
             pos_anterior = person.pos
-            person.take_turn(self.grid, self.exit, self.iteration)
+            person.take_turn(self.grid, self.exits, self.iteration)
             if person.pos != pos_anterior:
                 activos += 1
         if activos == 0:
@@ -63,10 +66,10 @@ class Maze:
             return
 
         num_elementos = random.randint(1, 3)
-        for i in range(num_elementos):
+        for _ in range(num_elementos):
             x = random.randint(0, self.size - 1)
             y = random.randint(0, self.size - 1)
-            if (x, y) == self.exit or any(p.pos == (x, y) for p in self.people):
+            if (x, y) in self.exits or any(p.pos == (x, y) for p in self.people):
                 continue
             tipo = random.choice(["X", "T", "R"])
             self.grid[x][y] = tipo
