@@ -20,16 +20,34 @@ class Maze:
                     break
 
     def add_obstacle(self):
-        x, y = map(int, input("Coordenadas X,Y del bloqueo: ").split(","))
-        self.grid[x][y] = "X"
+        try:
+            x, y = map(int, input("Coordenadas X,Y del bloqueo: ").split(","))
+            if 0 <= x < self.size and 0 <= y < self.size:
+                self.grid[x][y] = "X"
+            else:
+                print("❌ Coordenadas fuera del rango del laberinto.")
+        except:
+            print("⚠️ Entrada inválida. Usa el formato: fila,columna")
 
     def add_trap(self):
-        x, y = map(int, input("Coordenadas X,Y de la trampa: ").split(","))
-        self.grid[x][y] = "T"
+        try:
+            x, y = map(int, input("Coordenadas X,Y de la trampa: ").split(","))
+            if 0 <= x < self.size and 0 <= y < self.size:
+                self.grid[x][y] = "T"
+            else:
+                print("❌ Coordenadas fuera del rango del laberinto.")
+        except:
+            print("⚠️ Entrada inválida. Usa el formato: fila,columna")
 
     def add_delay(self):
-        x, y = map(int, input("Coordenadas X,Y del retrasador: ").split(","))
-        self.grid[x][y] = "R"
+        try:
+            x, y = map(int, input("Coordenadas X,Y del retrasador: ").split(","))
+            if 0 <= x < self.size and 0 <= y < self.size:
+                self.grid[x][y] = "R"
+            else:
+                print("❌ Coordenadas fuera del rango del laberinto.")
+        except:
+            print("⚠️ Entrada inválida. Usa el formato: fila,columna")
 
     def next_iteration(self):
         self.iteration += 1
@@ -44,7 +62,6 @@ class Maze:
             self.iteration = 0
             return
 
-        # Agregar entre 1 y 3 elementos aleatorios
         num_elementos = random.randint(1, 3)
         for _ in range(num_elementos):
             x = random.randint(0, self.size - 1)
@@ -53,3 +70,5 @@ class Maze:
                 continue
             tipo = random.choice(["X", "T", "R"])
             self.grid[x][y] = tipo
+
+

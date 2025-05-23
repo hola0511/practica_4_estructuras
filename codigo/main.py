@@ -1,6 +1,5 @@
 from maze import Maze
 from visualizer import display_maze
-from utils import clear_screen
 from person import print_decision_tree
 
 def menu():
@@ -13,7 +12,6 @@ def menu():
     maze = Maze(size=size, num_people=3)
 
     while True:
-        clear_screen()
         print("🌳 The Maze of Terror 🌀")
         print("1. Iniciar simulación")
         print("2. Colocar bloqueos")
